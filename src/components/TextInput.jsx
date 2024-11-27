@@ -17,10 +17,10 @@ const TextInput = () => {
         try {
             const response = fetch('')
             if (!response.ok) throw new Error('no valid response')
-            return textInput
+            return 'Hello World!'
         } catch (Error) {
             console.error(Error)
-            return textInput
+            return 'Unfortunatelly, I cannot process your question.'
         }
     }
 
@@ -29,12 +29,18 @@ const TextInput = () => {
     }
 
     const handleClick = async () => {
-        const answer = await fetchAnswer(textInput)
-        setContextChatMessage([
-            ...contextChatMessages,
+        setContextChatMessage((prevMessages) => [
+            ...prevMessages,
             { message: textInput, isFromBot: false },
+        ])
+
+        const answer = await fetchAnswer(textInput)
+
+        setContextChatMessage((prevMessages) => [
+            ...prevMessages,
             { message: answer, isFromBot: true },
         ])
+
         setTextInput('')
     }
 
