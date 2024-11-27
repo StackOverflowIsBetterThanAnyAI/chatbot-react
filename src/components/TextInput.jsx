@@ -15,9 +15,15 @@ const TextInput = () => {
 
     const fetchAnswer = async (textInput) => {
         try {
-            const response = fetch('')
+            const response = await fetch(
+                `http://localhost:8080/answers?question="${textInput}"`
+            )
             if (!response.ok) throw new Error('no valid response')
-            return 'Hello World!'
+
+            const answer = await response.text()
+            if (!answer) throw new Error('no valid answer')
+
+            return answer
         } catch (Error) {
             console.error(Error)
             return 'Unfortunatelly, I cannot process your question.'
