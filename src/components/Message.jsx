@@ -10,7 +10,7 @@ const Message = ({ isFromBot, children }) => {
     return (
         <div className={`flex gap-2 items-center ${direction}`}>
             <Avatar isBot={isFromBot} />
-            <div className={`w-fit p-2 ${background}`}>{children}</div>
+            <div className={`w-fit p-2 min-w-16 ${background}`}>{children}</div>
         </div>
     )
 }
