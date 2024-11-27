@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useState } from 'react'
+import ChatContainer from './components/ChatContainer'
+import TextInput from './components/TextInput'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const ContextChatMessages = createContext(undefined)
+
+const App = () => {
+    const [contextChatMessages, setContextChatMessages] = useState([
+        { message: 'Hello AI!', isFromBot: false },
+        { message: 'Hello World!', isFromBot: true },
+    ])
+
+    return (
+        <div className="h-svh flex flex-col justify-center items-center">
+            <ContextChatMessages.Provider
+                value={[contextChatMessages, setContextChatMessages]}
+            >
+                <ChatContainer />
+                <TextInput />
+            </ContextChatMessages.Provider>
+        </div>
+    )
 }
 
-export default App;
+export default App
