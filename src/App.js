@@ -11,7 +11,7 @@ const App = () => {
     ])
 
     return (
-        <div className="h-svh flex flex-col justify-center items-center">
+        <div className="min-h-svh bg-gradient-to-br from-slate-100 to-slate-200 flex flex-col justify-center items-center p-4">
             <ContextChatMessages.Provider
                 value={[contextChatMessages, setContextChatMessages]}
             >
