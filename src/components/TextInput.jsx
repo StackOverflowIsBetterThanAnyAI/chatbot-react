@@ -12,6 +12,7 @@ const TextInput = () => {
     }
 
     const [textInput, setTextInput] = useState('')
+    const [isProcessing, setIsProcessing] = useState(false)
 
     const fetchAnswer = async (textInput) => {
         try {
@@ -40,6 +41,10 @@ const TextInput = () => {
             { message: textInput, isFromBot: false },
         ])
 
+        setTextInput('')
+
+        setIsProcessing((prev) => (prev = true))
+
         const answer = await fetchAnswer(textInput)
 
         setContextChatMessage((prevMessages) => [
@@ -47,7 +52,7 @@ const TextInput = () => {
             { message: answer, isFromBot: true },
         ])
 
-        setTextInput('')
+        setIsProcessing((prev) => (prev = false))
     }
 
     const handleKeyDown = (e) => {
@@ -59,10 +64,10 @@ const TextInput = () => {
     return (
         <div className="flex w-full max-w-lg min-h-12">
             <textarea
-                className="bg-zinc-400 p-2 w-5/6 hover:bg-stone-450 active:bg-zinc-400"
+                className="bg-zinc-400 p-2 w-5/6 hover:bg-stone-450 active:bg-zinc-400 text-sm sm:text-base"
                 placeholder="What drinks do you offer?"
                 rows={2}
-                onChange={handleChange}
+                onChange={!isProcessing ? handleChange : undefined}
                 onKeyDown={handleKeyDown}
                 value={textInput}
             ></textarea>
